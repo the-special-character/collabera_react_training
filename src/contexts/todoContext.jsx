@@ -70,6 +70,14 @@ export default class TodoProvider extends Component {
     );
   };
 
+  getErrorStatus = ({ type, id = -1 }) => {
+    const { appStatus } = this.state;
+
+    return appStatus.find(
+      x => x.type === type && x.action === 'ERROR' && x.id === id,
+    );
+  };
+
   addTodo = async event => {
     const type = 'ADD_TODO';
     try {
@@ -187,6 +195,7 @@ export default class TodoProvider extends Component {
           filterType,
           todoText: this.todoText,
           getRequestStatus: this.getRequestStatus,
+          getErrorStatus: this.getErrorStatus,
         }}
       >
         {children}

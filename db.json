@@ -1,5 +1,11 @@
 {
-  "todoList": [],
+  "todoList": [
+    {
+      "text": "asdafdsf",
+      "isDone": false,
+      "id": 1
+    }
+  ],
   "weatherList": [
     {
       "cityName": "Ahmedabad",
