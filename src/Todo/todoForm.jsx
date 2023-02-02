@@ -1,38 +1,23 @@
-import React, { forwardRef, memo } from 'react';
-import PropTypes from 'prop-types';
-import { LocaleContext } from '../contexts/localeContext';
+import React, { memo } from 'react';
+import { TodoContext } from '../contexts/todoContext';
 
-const TodoForm = forwardRef(({ addTodo, status }, ref) => (
-  <form className="todo__form todo_form" onSubmit={addTodo}>
-    <input ref={ref} type="text" className="todo_form__input" />
-    <button
-      disabled={status?.action === 'REQUEST'}
-      type="submit"
-      className="todo_form__btn"
-    >
-      Add Todo
-    </button>
-    <LocaleContext.Consumer>
-      {({ toggleLocale }) => (
-        <button type="button" onClick={toggleLocale}>
-          Change Locale
-        </button>
+function TodoForm() {
+  return (
+    <TodoContext.Consumer>
+      {({ addTodo, todoText, getRequestStatus }) => (
+        <form className="todo__form todo_form" onSubmit={addTodo}>
+          <input ref={todoText} type="text" className="todo_form__input" />
+          <button
+            disabled={getRequestStatus({ type: 'ADD_TODO' })}
+            type="submit"
+            className="todo_form__btn"
+          >
+            Add Todo
+          </button>
+        </form>
       )}
-    </LocaleContext.Consumer>
-  </form>
-));
-
-TodoForm.propTypes = {
-  addTodo: PropTypes.func.isRequired,
-  status: PropTypes.shape({
-    type: PropTypes.string,
-    action: PropTypes.oneOf(['REQUEST', 'ERROR']),
-    errorMessage: PropTypes.string,
-  }),
-};
-
-TodoForm.defaultProps = {
-  status: undefined,
-};
+    </TodoContext.Consumer>
+  );
+}
 
 export default memo(TodoForm);
