@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
+import { LocaleContext } from '../contexts/localeContext';
 
 function TodoListItem({
   item,
@@ -12,6 +13,10 @@ function TodoListItem({
   // console.log('Todo Item Render');
   return (
     <div key={item.id} className="flex items-center m-4">
+      <LocaleContext.Consumer>
+        {value => <p>{value.locale}</p>}
+      </LocaleContext.Consumer>
+
       <input
         type="checkbox"
         checked={item.isDone}

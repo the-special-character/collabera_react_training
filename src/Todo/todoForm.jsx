@@ -1,5 +1,6 @@
 import React, { forwardRef, memo } from 'react';
 import PropTypes from 'prop-types';
+import { LocaleContext } from '../contexts/localeContext';
 
 const TodoForm = forwardRef(({ addTodo, status }, ref) => (
   <form className="todo__form todo_form" onSubmit={addTodo}>
@@ -11,6 +12,13 @@ const TodoForm = forwardRef(({ addTodo, status }, ref) => (
     >
       Add Todo
     </button>
+    <LocaleContext.Consumer>
+      {({ toggleLocale }) => (
+        <button type="button" onClick={toggleLocale}>
+          Change Locale
+        </button>
+      )}
+    </LocaleContext.Consumer>
   </form>
 ));
 

@@ -19,6 +19,7 @@ const filterBtns = [
 
 function TodoFilter({ setFilterType, filterType }) {
   // console.log('TodoFilter render');
+  // throw new Error('Todo filter crash');
   return (
     <div className="w-full flex">
       {filterBtns.map(x => (
