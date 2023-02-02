@@ -7,8 +7,8 @@ import TodoFilter from './todoFilter';
 export default class Todo extends PureComponent {
   state = {
     todoList: [],
+    appStatus: [],
     filterType: 'all',
-    error: null,
   };
 
   todoText = createRef();
@@ -17,8 +17,33 @@ export default class Todo extends PureComponent {
     this.loadTodo('all');
   }
 
+  loadStatus = ({ type, id = -1 }) => {
+    this.setState(({ appStatus }) => ({
+      appStatus: [...appStatus, { type, action: 'REQUEST', id }],
+    }));
+  };
+
+  errorStatus = ({ type, id = -1, error }) => {
+    this.setState(({ appStatus }) => ({
+      appStatus: appStatus.map(x => {
+        if (x.type === type && x.id === id) {
+          return { ...x, action: 'ERROR', errorMessage: error.message };
+        }
+        return x;
+      }),
+    }));
+  };
+
+  successStatus = ({ type, id = -1 }) => {
+    this.setState(({ appStatus }) => ({
+      appStatus: appStatus.filter(x => !(x.type === type && x.id === id)),
+    }));
+  };
+
   loadTodo = async filterType => {
+    const type = 'LOAD_TODO';
     try {
+      this.loadStatus({ type });
       let url = 'http://localhost:3000/todoList';
 
       if (filterType !== 'all') {
@@ -33,13 +58,16 @@ export default class Todo extends PureComponent {
       }
 
       this.setState({ todoList: json, filterType });
+      this.successStatus({ type });
     } catch (error) {
-      this.setState({ error });
+      this.errorStatus({ type, error });
     }
   };
 
   addTodo = async event => {
+    const type = 'ADD_TODO';
     try {
+      this.loadStatus({ type });
       event.preventDefault();
 
       const todoText = this.todoText.current.value;
@@ -70,13 +98,16 @@ export default class Todo extends PureComponent {
           this.todoText.current.value = '';
         },
       );
+      this.successStatus({ type });
     } catch (error) {
-      this.setState({ error });
+      this.errorStatus({ type, error });
     }
   };
 
   toggleComplete = async item => {
+    const type = 'UPDATE_TODO';
     try {
+      this.loadStatus({ type, id: item.id });
       const res = await fetch(`http://localhost:3000/todoList/${item.id}`, {
         method: 'PUT',
         body: JSON.stringify({ ...item, isDone: !item.isDone }),
@@ -103,13 +134,16 @@ export default class Todo extends PureComponent {
           ],
         };
       });
+      this.successStatus({ type, id: item.id });
     } catch (error) {
-      this.setState({ error });
+      this.errorStatus({ type, error, id: item.id });
     }
   };
 
   deleteTodo = async item => {
+    const type = 'DELETE_TODO';
     try {
+      this.loadStatus({ type, id: item.id });
       const res = await fetch(`http://localhost:3000/todoList/${item.id}`, {
         method: 'DELETE',
       });
@@ -126,28 +160,47 @@ export default class Todo extends PureComponent {
           todoList: [...todoList.slice(0, index), ...todoList.slice(index + 1)],
         };
       });
+      this.successStatus({ type, id: item.id });
     } catch (error) {
-      this.setState({ error });
+      this.errorStatus({ type, error, id: item.id });
     }
   };
 
   render() {
-    console.log('todo render');
+    console.log('render');
+    const { filterType, todoList, appStatus } = this.state;
 
-    const { error, filterType, todoList } = this.state;
-    if (error) {
-      return <h1>{error.message}</h1>;
-    }
+    const loadTodoStatus = appStatus.find(x => x.type === 'LOAD_TODO');
+
+    const addTodoStatus = appStatus.find(x => x.type === 'ADD_TODO');
+
+    const updateTodoStatus = appStatus.filter(x => x.type === 'UPDATE_TODO');
+
+    const deleteTodoStatus = appStatus.filter(x => x.type === 'DELETE_TODO');
 
     return (
       <div className="todo">
         <h1 className="todo__title">Todo App</h1>
-        <TodoForm addTodo={this.addTodo} ref={this.todoText} />
-        <TodoList
-          todoList={todoList}
-          toggleComplete={this.toggleComplete}
-          deleteTodo={this.deleteTodo}
+        <TodoForm
+          addTodo={this.addTodo}
+          ref={this.todoText}
+          status={addTodoStatus}
         />
+        <div className="w-full flex-1 overflow-y-auto">
+          {loadTodoStatus?.action === 'REQUEST' && <h1>Loading...</h1>}
+          {loadTodoStatus?.action === 'ERROR' && (
+            <h1>{loadTodoStatus.errorMessage}</h1>
+          )}
+          {todoList.length > 0 && (
+            <TodoList
+              todoList={todoList}
+              toggleComplete={this.toggleComplete}
+              deleteTodo={this.deleteTodo}
+              updateStatus={updateTodoStatus}
+              deleteStatus={deleteTodoStatus}
+            />
+          )}
+        </div>
         <TodoFilter setFilterType={this.loadTodo} filterType={filterType} />
       </div>
     );

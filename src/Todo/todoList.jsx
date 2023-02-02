@@ -2,18 +2,26 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import TodoListItem from './todoListItem';
 
-function TodoList({ todoList, toggleComplete, deleteTodo }) {
+function TodoList({
+  todoList,
+  toggleComplete,
+  deleteTodo,
+  updateStatus,
+  deleteStatus,
+}) {
   return (
-    <div className="w-full flex-1 overflow-y-auto">
+    <>
       {todoList.map(item => (
         <TodoListItem
           key={item.id}
           item={item}
           toggleComplete={toggleComplete}
           deleteTodo={deleteTodo}
+          updateStatus={updateStatus.find(x => x.id === item.id)}
+          deleteStatus={deleteStatus.find(x => x.id === item.id)}
         />
       ))}
-    </div>
+    </>
   );
 }
 
@@ -28,6 +36,22 @@ TodoList.propTypes = {
 
   toggleComplete: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
+  deleteStatus: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string,
+      action: PropTypes.oneOf(['REQUEST', 'ERROR']),
+      errorMessage: PropTypes.string,
+      id: PropTypes.number,
+    }),
+  ).isRequired,
+  updateStatus: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string,
+      action: PropTypes.oneOf(['REQUEST', 'ERROR']),
+      errorMessage: PropTypes.string,
+      id: PropTypes.number,
+    }),
+  ).isRequired,
 };
 
 export default memo(TodoList);
