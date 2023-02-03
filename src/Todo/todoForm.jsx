@@ -4,12 +4,16 @@ import { TodoContext } from '../contexts/todoContext';
 function TodoForm() {
   return (
     <TodoContext.Consumer>
-      {({ addTodo, todoText, getRequestStatus, getErrorStatus }) => {
+      {({ addTodo, todoTextRef, getRequestStatus, getErrorStatus }) => {
         const error = getErrorStatus({ type: 'ADD_TODO' });
         return (
           <div>
             <form className="todo__form todo_form" onSubmit={addTodo}>
-              <input ref={todoText} type="text" className="todo_form__input" />
+              <input
+                ref={todoTextRef}
+                type="text"
+                className="todo_form__input"
+              />
               <button
                 disabled={getRequestStatus({ type: 'ADD_TODO' })}
                 type="submit"
