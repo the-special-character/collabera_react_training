@@ -6,7 +6,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // Old Javascript Technique to Export content
 module.exports = {
   entry: './src/index.jsx',
-  output: { path: path.resolve(__dirname, 'dist'), filename: 'main.js' },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'main.js',
+    publicPath: '/', // nested routing
+  },
   mode: 'development',
   module: {
     rules: [
@@ -36,5 +40,6 @@ module.exports = {
     compress: true,
     port: 8080,
     open: true,
+    historyApiFallback: true, //routing
   },
 };
