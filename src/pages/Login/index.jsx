@@ -1,38 +1,91 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
+import Input from '../../components/Input';
 
 function Login() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
+  const onSubmit = data => {
+    console.log(data);
+  };
+
   return (
-    <form className="mt-8 space-y-6">
+    <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
       <input type="hidden" name="remember" defaultValue="true" />
       <div className="-space-y-px rounded-md shadow-sm">
-        <div>
-          <label htmlFor="email-address" className="sr-only">
-            Email address
-          </label>
-          <input
-            id="email-address"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-            placeholder="Email address"
-          />
-        </div>
-        <div>
-          <label htmlFor="password" className="sr-only">
-            Password
-          </label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            autoComplete="current-password"
-            required
-            className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-            placeholder="Password"
-          />
-        </div>
+        {/* <Controller
+          name="email"
+          control={control}
+          rules={{
+            required: 'Email is required...',
+          }}
+          render={({ field }) => {
+            console.log(field);
+            return (
+              <Input
+                {...field}
+                type="email"
+                id="email"
+                autoComplete="email"
+                placeholder="Email"
+                error={errors.email?.message}
+                className="rounded-t-md"
+              />
+            );
+          }}
+        />
+        <Controller
+          name="password"
+          control={control}
+          rules={{
+            required: 'Email is required...',
+          }}
+          render={({ field }) => {
+            console.log(field);
+            return (
+              <Input
+                {...field}
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                placeholder="Password"
+                error={errors.email?.message}
+                className="rounded-b-md"
+              />
+            );
+          }}
+        /> */}
+        <Input
+          {...register('email', {
+            required: 'Email is required',
+          })}
+          type="email"
+          id="email"
+          autoComplete="email"
+          placeholder="Email"
+          error={errors.email?.message}
+          className="rounded-t-md"
+        />
+        <Input
+          {...register('password', {
+            required: 'Password is required',
+          })}
+          type="password"
+          id="password"
+          autoComplete="current-password"
+          placeholder="Password"
+          error={errors.password?.message}
+          className="rounded-b-md"
+        />
       </div>
 
       <div className="flex items-center justify-between">
