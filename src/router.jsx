@@ -15,7 +15,7 @@ import MainLayout from './layouts/mainLayout';
 export default createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<BaseLayout />}>
-      <Route path="main" element={<MainLayout />}>
+      <Route path="dashboard" element={<MainLayout />}>
         <Route index element={<Home />} />
       </Route>
       <Route path="auth" element={<AuthLayout />}>
