@@ -32,5 +32,26 @@
       "temp": 30,
       "tempType": "C"
     }
+  ],
+  "users": [
+    {
+      "email": "yagnesh.modh@gmail.com",
+      "password": "$2a$10$nD8zamTN4ej43Jp3wFXRje.diQuUQkwAYk0lY/38JLoohFgyh98mS",
+      "name": "YAGNESH MODH",
+      "gender": "male",
+      "hobbies": [
+        "cricket",
+        "football"
+      ],
+      "id": 1
+    },
+    {
+      "email": "dsp.ce28@gmail.com",
+      "password": "$2a$10$u5G7dOCXzrpNT4o17BlRvuTHlAOf1JQo/NCpoqLG09yvMcDX7ivpm",
+      "name": "YAGNESH MODH",
+      "gender": "male",
+      "hobbies": [],
+      "id": 2
+    }
   ]
 }

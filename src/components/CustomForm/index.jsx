@@ -4,8 +4,13 @@ import React from 'react';
 function CustomForm({ fields, btnText, children, ...props }) {
   return (
     <Formik {...props}>
-      {({ isValid, dirty, isSubmitting }) => (
+      {({ isValid, dirty, isSubmitting, errors }) => (
         <Form className="mt-8 space-y-6">
+          {errors.serverError && (
+            <p className="text-red-500 text-center font-medium text-base">
+              {errors.serverError}
+            </p>
+          )}
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="-space-y-px rounded-md shadow-sm">
             {fields.map(item => (

@@ -1,3 +1,4 @@
+import Checkbox from '../../components/Checkbox';
 import Input from '../../components/Input';
 import Radio from '../../components/Radio';
 import Select from '../../components/Select';
@@ -46,26 +47,25 @@ export const registerFields = [
     },
   },
   {
-    component: Radio,
-    label: 'Gender',
-    name: 'gender1',
-    'data-value': '',
+    component: Checkbox,
+    label: 'hobbies',
+    name: 'hobbies',
+    'data-value': [],
     options: [
       {
-        id: 'male',
-        text: 'Male',
+        id: 'cricket',
+        text: 'Cricket',
       },
       {
-        id: 'female',
-        text: 'Female',
+        id: 'football',
+        text: 'Football',
       },
       {
-        id: 'other',
-        text: 'Other',
+        id: 'golf',
+        text: 'golf',
       },
     ],
   },
-
   {
     component: Input,
     name: 'email',
@@ -103,7 +103,7 @@ export const registerFields = [
     type: 'password',
     'data-value': '',
     autoComplete: 'new-password',
-    placeholder: 'Password',
+    placeholder: 'Confirm Password',
     className: 'rounded-b-md',
     validate: value => {
       if (!value) {
