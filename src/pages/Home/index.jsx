@@ -1,21 +1,14 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../context/authContext';
 
 function Home() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  console.log('location', location);
-
-  const navigateToAuth = () => {
-    navigate('/auth');
-  };
+  const { logout } = useAuthContext();
 
   return (
     <div>
       <h1>Home page</h1>
-      <button type="button" onClick={navigateToAuth}>
-        Go To Auth
+      <button type="button" onClick={logout}>
+        Logout
       </button>
     </div>
   );

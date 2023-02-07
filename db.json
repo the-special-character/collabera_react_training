@@ -52,6 +52,17 @@
       "gender": "male",
       "hobbies": [],
       "id": 2
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "$2a$10$fh9WmHziw5emmqNI8BbRUuT0nZjowK.kYsZAhb4DifJylUlL9GXxG",
+      "name": "test",
+      "gender": "male",
+      "hobbies": [
+        "cricket",
+        "golf"
+      ],
+      "id": 3
     }
   ]
 }

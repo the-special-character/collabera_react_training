@@ -1,12 +1,15 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAuthContext } from '../context/authContext';
 
 function MainLayout() {
-  return (
-    <div>
-      <Outlet />
-    </div>
-  );
+  const { user } = useAuthContext();
+
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
+
+  return <Outlet />;
 }
 
 export default MainLayout;

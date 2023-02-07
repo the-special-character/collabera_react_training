@@ -1,22 +1,15 @@
 import React from 'react';
 import { loginFields, loginInitialValues } from './loginFields';
 import CustomForm from '../../components/CustomForm';
-
-const wait = time =>
-  new Promise(resolve => {
-    setTimeout(resolve, time);
-  });
+import { useAuthContext } from '../../context/authContext';
 
 function Login() {
-  const onLogin = async values => {
-    await wait(3000);
-    console.log(values);
-  };
+  const { login } = useAuthContext();
 
   return (
     <CustomForm
       initialValues={loginInitialValues}
-      onSubmit={onLogin}
+      onSubmit={login}
       fields={loginFields}
       btnText="Sign in"
     >
