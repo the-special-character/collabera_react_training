@@ -1,4 +1,6 @@
 import Input from '../../components/Input';
+import Radio from '../../components/Radio';
+import Select from '../../components/Select';
 
 export const registerFields = [
   {
@@ -16,6 +18,54 @@ export const registerFields = [
       return '';
     },
   },
+  {
+    component: Select,
+    name: 'gender',
+    id: 'gender',
+    'data-value': '',
+    placeholder: 'Gender',
+    options: [
+      {
+        value: 'male',
+        text: 'Male',
+      },
+      {
+        value: 'female',
+        text: 'Female',
+      },
+      {
+        value: 'other',
+        text: 'Other',
+      },
+    ],
+    validate: value => {
+      if (!value) {
+        return 'Required...';
+      }
+      return '';
+    },
+  },
+  {
+    component: Radio,
+    label: 'Gender',
+    name: 'gender1',
+    'data-value': '',
+    options: [
+      {
+        id: 'male',
+        text: 'Male',
+      },
+      {
+        id: 'female',
+        text: 'Female',
+      },
+      {
+        id: 'other',
+        text: 'Other',
+      },
+    ],
+  },
+
   {
     component: Input,
     name: 'email',
