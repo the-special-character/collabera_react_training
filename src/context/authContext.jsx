@@ -6,6 +6,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import PropTypes from 'prop-types';
 
 export const AuthContext = createContext();
 
@@ -33,7 +34,6 @@ export function AuthProvider({ children }) {
       if (!res.ok) {
         throw new Error(json);
       }
-      console.log(json);
       setUser(json);
       localStorage.setItem('token', JSON.stringify(json));
       actions.resetForm();
@@ -58,7 +58,6 @@ export function AuthProvider({ children }) {
       if (!res.ok) {
         throw new Error(json);
       }
-      console.log(json);
       actions.resetForm();
       setUser(json);
       localStorage.setItem('token', JSON.stringify(json));
@@ -84,5 +83,9 @@ export function AuthProvider({ children }) {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
+
+AuthProvider.propTypes = {
+  children: PropTypes.element.isRequired,
+};
 
 export const useAuthContext = () => useContext(AuthContext);

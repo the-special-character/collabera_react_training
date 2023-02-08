@@ -3,6 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useAuthContext } from '../context/authContext';
 import Header from '../components/Header';
 import { ProductsProvider } from '../context/productsContext';
+import { CartProvider } from '../context/cartContext';
 
 function MainLayout() {
   const { user } = useAuthContext();
@@ -13,8 +14,10 @@ function MainLayout() {
 
   return (
     <ProductsProvider>
-      <Header />
-      <Outlet />
+      <CartProvider>
+        <Header />
+        <Outlet />
+      </CartProvider>
     </ProductsProvider>
   );
 }
