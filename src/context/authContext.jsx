@@ -7,12 +7,14 @@ import React, {
   useState,
 } from 'react';
 import PropTypes from 'prop-types';
+import axiosInstance from '../utils/axiosInstance';
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
+  // component did mount
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -22,20 +24,9 @@ export function AuthProvider({ children }) {
 
   const login = useCallback(async (values, actions) => {
     try {
-      const res = await fetch('http://localhost:3000/login', {
-        method: 'POST',
-        body: JSON.stringify(values),
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        throw new Error(json);
-      }
-      setUser(json);
-      localStorage.setItem('token', JSON.stringify(json));
+      const res = await axiosInstance.post('login', values);
+      setUser(res);
+      localStorage.setItem('token', JSON.stringify(res));
       actions.resetForm();
     } catch (error) {
       actions.setErrors({ serverError: error.message });
@@ -46,21 +37,10 @@ export function AuthProvider({ children }) {
     try {
       const { confirmPassword, ...rest } = values;
 
-      const res = await fetch('http://localhost:3000/register', {
-        method: 'POST',
-        body: JSON.stringify(rest),
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        throw new Error(json);
-      }
+      const res = await axiosInstance.post('register', rest);
       actions.resetForm();
-      setUser(json);
-      localStorage.setItem('token', JSON.stringify(json));
+      setUser(res);
+      localStorage.setItem('token', JSON.stringify(res));
     } catch (error) {
       actions.setErrors({ serverError: error.message });
     }

@@ -1,6 +1,5 @@
 import Checkbox from '../../components/Checkbox';
 import Input from '../../components/Input';
-import Radio from '../../components/Radio';
 import Select from '../../components/Select';
 
 export const registerFields = [

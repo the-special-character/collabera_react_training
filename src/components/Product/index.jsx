@@ -1,9 +1,10 @@
-import React, { useMemo, memo } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { useCartContext } from '../../context/cartContext';
 import Reviews from '../Reviews';
 
-function Product({ product, isLoading }) {
+function Product({ product, isLoading, theme, changeTheme }) {
   const { cart, addToCart, updateCartItem, deleteCartItem } = useCartContext();
 
   const cartItem = useMemo(
@@ -30,7 +31,15 @@ function Product({ product, isLoading }) {
 
         <section aria-labelledby="information-heading" className="mt-2">
           <h3 id="information-heading">{product.description}</h3>
-
+          <h3>{theme}</h3>
+          <button
+            type="button"
+            disabled={isLoading}
+            className="flex flex-1 w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-slate-500 disabled:cursor-wait"
+            onClick={changeTheme}
+          >
+            Change Theme
+          </button>
           <p className="text-2xl text-gray-900">
             {new Intl.NumberFormat('en-IN', {
               style: 'currency',
@@ -116,4 +125,12 @@ Product.propTypes = {
   isLoading: PropTypes.bool.isRequired,
 };
 
-export default memo(Product);
+const mapStateToProps = store => ({
+  theme: store.theme,
+});
+
+const mapDispatchToProps = dispatch => ({
+  changeTheme: () => dispatch({ type: 'CHANGE_THEME' }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

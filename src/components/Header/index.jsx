@@ -5,6 +5,7 @@ import {
   ShoppingBagIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
+import { connect } from 'react-redux';
 import { useAuthContext } from '../../context/authContext';
 import { useCartContext } from '../../context/cartContext';
 import Checkout from '../Checkout';
@@ -20,7 +21,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-function Header() {
+function Header({ theme, locale }) {
   const { logout } = useAuthContext();
   const { cart } = useCartContext();
   const [open, setOpen] = useState(false);
@@ -34,6 +35,8 @@ function Header() {
       <Disclosure as="nav" className="bg-gray-800">
         {({ open }) => (
           <>
+            <h1 className="text-white">{`Current Theme is : ${theme}`}</h1>
+            <h1 className="text-white">{`Current Locale is : ${locale}`}</h1>
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
               <div className="relative flex h-16 items-center justify-between">
                 <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -187,4 +190,11 @@ function Header() {
   );
 }
 
-export default Header;
+const mapStateToProps = store => ({
+  theme: store.theme,
+  locale: store.locale,
+});
+
+const mapDispatchToProps = dispatch => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
