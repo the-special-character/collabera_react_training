@@ -18,19 +18,30 @@ const useApiRequest = ({ dispatch, dispatchLoading, dispatchErrors }) => {
         dispatchLoading({
           type: `${type}_SUCCESS`,
           payload: {
-            payload: { loadingId: apiData?.data?.productId || -1 },
+            loadingId: apiData?.data?.productId || -1,
           },
         });
       } catch (err) {
         dispatchLoading({
           type: `${type}_FAIL`,
-          payload: {
-            payload: { loadingId: apiData?.data?.productId || -1 },
-          },
+          payload: { loadingId: apiData?.data?.productId || -1 },
         });
         dispatchErrors({
           type: `${type}_FAIL`,
-          payload: { message: err.message },
+          payload: {
+            message: err.message,
+            title: `${type
+              .split('_')
+              .map((x, i) => {
+                if (i === 0) {
+                  return `${x[0].toUpperCase()}${x
+                    .slice(1)
+                    .toLocaleLowerCase()}`;
+                }
+                return x.toLocaleLowerCase();
+              })
+              .join(' ')} fail`,
+          },
         });
       }
     },

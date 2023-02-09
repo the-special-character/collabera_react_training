@@ -6,8 +6,6 @@ export default (state, { type, payload }) => {
   if (!match) return state;
 
   const [, actionType, actionName] = match;
-  console.log(actionType);
-  console.log(actionName);
   if (actionName === 'REQUEST') {
     return [
       ...state,
@@ -17,5 +15,8 @@ export default (state, { type, payload }) => {
       },
     ];
   }
-  return state.filter(x => x.action !== actionType);
+
+  return state.filter(
+    x => !(x.action === actionType && x.loadingId === payload.loadingId),
+  );
 };

@@ -85,7 +85,7 @@ export function AuthProvider({ children }) {
 }
 
 AuthProvider.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export const useAuthContext = () => useContext(AuthContext);

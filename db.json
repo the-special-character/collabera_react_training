@@ -335,12 +335,12 @@
     },
     {
       "productId": 2,
-      "quantity": 2,
+      "quantity": 4,
       "id": 10
     },
     {
       "productId": 1,
-      "quantity": 2,
+      "quantity": 10,
       "id": 11
     },
     {

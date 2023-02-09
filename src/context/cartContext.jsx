@@ -17,6 +17,7 @@ export function CartProvider({ children }) {
   const [cart, dispatch] = useReducer(cartReducer, cartInitialValue);
   const { dispatchErrors } = useErrorContext();
   const { dispatchLoading } = useLoadingContext();
+
   const apiRequest = useApiRequest({
     dispatch,
     dispatchLoading,

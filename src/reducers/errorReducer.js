@@ -15,8 +15,5 @@ export default (state, { type, payload }) => {
       },
     ];
   }
-
-  return state.filter(
-    x => !(x.action === actionType && x.loadingId === payload.loadingId),
-  );
+  return state.filter(x => x.action !== actionType);
 };

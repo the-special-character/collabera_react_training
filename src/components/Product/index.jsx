@@ -1,21 +1,14 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useCartContext } from '../../context/cartContext';
 import Reviews from '../Reviews';
-import { useLoadingContext } from '../../context/loadingContext';
 
-function Product({ product }) {
+function Product({ product, isLoading }) {
   const { cart, addToCart, updateCartItem, deleteCartItem } = useCartContext();
-  const { loading } = useLoadingContext();
 
   const cartItem = useMemo(
     () => cart.find(x => x.productId === product.id),
     [cart, product.id],
-  );
-
-  const isLoading = useMemo(
-    () => loading.some(x => x.loadingId === product.id),
-    [loading, product.id],
   );
 
   return (
@@ -120,6 +113,7 @@ Product.propTypes = {
       count: PropTypes.number.isRequired,
     }).isRequired,
   }).isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
-export default Product;
+export default memo(Product);
