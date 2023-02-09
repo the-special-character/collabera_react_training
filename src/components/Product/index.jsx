@@ -2,18 +2,20 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useCartContext } from '../../context/cartContext';
 import Reviews from '../Reviews';
+import { useLoadingContext } from '../../context/loadingContext';
 
 function Product({ product }) {
-  const {
-    cartState: { cart },
-    addToCart,
-    updateCartItem,
-    deleteCartItem,
-  } = useCartContext();
+  const { cart, addToCart, updateCartItem, deleteCartItem } = useCartContext();
+  const { loading } = useLoadingContext();
 
   const cartItem = useMemo(
     () => cart.find(x => x.productId === product.id),
     [cart, product.id],
+  );
+
+  const isLoading = useMemo(
+    () => loading.some(x => x.loadingId === product.id),
+    [loading, product.id],
   );
 
   return (
@@ -51,8 +53,9 @@ function Product({ product }) {
           {cartItem ? (
             <div className="flex items-center">
               <button
-                type="submit"
-                className="flex flex-1 w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                type="button"
+                disabled={isLoading}
+                className="flex flex-1 w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-slate-500 disabled:cursor-wait"
                 onClick={() =>
                   updateCartItem({
                     ...cartItem,
@@ -66,8 +69,9 @@ function Product({ product }) {
                 {cartItem.quantity}
               </p>
               <button
-                type="submit"
-                className="flex flex-1 w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                type="button"
+                disabled={isLoading}
+                className="flex flex-1 w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2  disabled:bg-slate-500 disabled:cursor-wait"
                 onClick={() => {
                   if (cartItem.quantity <= 1) {
                     deleteCartItem(cartItem);
@@ -84,8 +88,9 @@ function Product({ product }) {
             </div>
           ) : (
             <button
-              type="submit"
-              className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              type="button"
+              disabled={isLoading}
+              className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-slate-500 disabled:cursor-wait"
               onClick={() =>
                 addToCart({
                   productId: product.id,

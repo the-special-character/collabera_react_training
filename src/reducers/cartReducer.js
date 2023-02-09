@@ -1,51 +1,22 @@
-export const cartInitialValue = {
-  loading: false,
-  cart: [],
-  error: '',
-};
+export const cartInitialValue = [];
 
 export const cartReducer = (state, { type, payload }) => {
   switch (type) {
-    case 'LOAD_CART_REQUEST':
-    case 'ADD_CART_REQUEST':
-    case 'UPDATE_CART_REQUEST':
-    case 'DELETE_CART_REQUEST':
-      return { ...state, loading: true };
-
     case 'LOAD_CART_SUCCESS':
-      return { ...state, loading: false, cart: payload };
+      return payload;
 
     case 'ADD_CART_SUCCESS':
-      return { ...state, loading: false, cart: [...state.cart, payload] };
+      return [...state, payload];
 
     case 'UPDATE_CART_SUCCESS': {
-      const index = state.cart.findIndex(x => x.id === payload.id);
-      return {
-        ...state,
-        loading: false,
-        cart: [
-          ...state.cart.slice(0, index),
-          payload,
-          ...state.cart.slice(index + 1),
-        ],
-      };
+      const index = state.findIndex(x => x.id === payload.id);
+      return [...state.slice(0, index), payload, ...state.slice(index + 1)];
     }
 
     case 'DELETE_CART_SUCCESS': {
-      console.log(payload);
-      const index = state.cart.findIndex(x => x.id === Number(payload));
-      return {
-        ...state,
-        loading: false,
-        cart: [...state.cart.slice(0, index), ...state.cart.slice(index + 1)],
-      };
+      const index = state.findIndex(x => x.id === payload.id);
+      return [...state.slice(0, index), ...state.slice(index + 1)];
     }
-
-    case 'LOAD_CART_FAIL':
-    case 'ADD_CART_FAIL':
-    case 'UPDATE_CART_FAIL':
-    case 'DELETE_CART_FAIL':
-      return { ...state, loading: false, error: payload.message };
 
     default:
       return state;

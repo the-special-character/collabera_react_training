@@ -3,33 +3,49 @@ import React, {
   useCallback,
   useContext,
   useMemo,
-  useState,
+  useReducer,
 } from 'react';
 import PropTypes from 'prop-types';
-import axiosInstance from '../utils/axiosInstance';
+import {
+  productsInitialValue,
+  productsReducer,
+} from '../reducers/productReducer';
+import useApiRequest from '../hooks/useApiRequest';
+import { useErrorContext } from './errorContext';
+import { useLoadingContext } from './loadingContext';
 
 export const ProductsContext = createContext();
 
 export function ProductsProvider({ children }) {
-  const [products, setProducts] = useState([]);
-  const [error, setError] = useState('');
+  const [products, dispatch] = useReducer(
+    productsReducer,
+    productsInitialValue,
+  );
+  const { dispatchErrors } = useErrorContext();
+  const { dispatchLoading } = useLoadingContext();
+  const apiRequest = useApiRequest({
+    dispatch,
+    dispatchLoading,
+    dispatchErrors,
+  });
 
   const loadProducts = useCallback(async () => {
-    try {
-      const res = await axiosInstance.get('660/products');
-      setProducts(res);
-    } catch (err) {
-      setError(err.message);
-    }
-  }, []);
+    const type = 'LOAD_PRODUCTS';
+    apiRequest({
+      apiData: {
+        method: 'get',
+        url: '660/products',
+      },
+      type,
+    });
+  }, [apiRequest]);
 
   const value = useMemo(
     () => ({
       products,
-      error,
       loadProducts,
     }),
-    [products, loadProducts, error],
+    [products, loadProducts],
   );
 
   return (

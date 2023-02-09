@@ -21,9 +21,7 @@ function classNames(...classes) {
 
 function Header() {
   const { logout } = useAuthContext();
-  const {
-    cartState: { cart },
-  } = useCartContext();
+  const { cart } = useCartContext();
 
   return (
     <Disclosure as="nav" className="bg-gray-800">

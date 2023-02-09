@@ -6,27 +6,22 @@ import React, {
   useReducer,
 } from 'react';
 import PropTypes from 'prop-types';
-import axiosInstance from '../utils/axiosInstance';
 import { cartInitialValue, cartReducer } from '../reducers/cartReducer';
+import useApiRequest from '../hooks/useApiRequest';
+import { useErrorContext } from './errorContext';
+import { useLoadingContext } from './loadingContext';
 
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cartState, dispatch] = useReducer(cartReducer, cartInitialValue);
-
-  const apiRequest = useCallback(async ({ apiData, type }) => {
-    try {
-      dispatch({ type: `${type}_REQUEST` });
-      const res = await axiosInstance(apiData);
-      dispatch({
-        type: `${type}_SUCCESS`,
-        payload:
-          apiData.method === 'delete' ? apiData.url.split('/').at(-1) : res,
-      });
-    } catch (err) {
-      dispatch({ type: `${type}_FAIL`, payload: err });
-    }
-  }, []);
+  const [cart, dispatch] = useReducer(cartReducer, cartInitialValue);
+  const { dispatchErrors } = useErrorContext();
+  const { dispatchLoading } = useLoadingContext();
+  const apiRequest = useApiRequest({
+    dispatch,
+    dispatchLoading,
+    dispatchErrors,
+  });
 
   const loadCart = useCallback(async () => {
     const type = 'LOAD_CART';
@@ -76,6 +71,7 @@ export function CartProvider({ children }) {
         apiData: {
           method: 'delete',
           url: `660/cart/${data.id}`,
+          data,
         },
         type,
       });
@@ -89,9 +85,9 @@ export function CartProvider({ children }) {
       addToCart,
       updateCartItem,
       deleteCartItem,
-      cartState,
+      cart,
     }),
-    [loadCart, addToCart, updateCartItem, deleteCartItem, cartState],
+    [loadCart, addToCart, updateCartItem, deleteCartItem, cart],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

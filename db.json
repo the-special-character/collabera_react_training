@@ -309,9 +309,44 @@
   ],
   "cart": [
     {
+      "productId": 5,
+      "quantity": 1,
+      "id": 4
+    },
+    {
+      "productId": 6,
+      "quantity": 1,
+      "id": 5
+    },
+    {
+      "productId": 7,
+      "quantity": 1,
+      "id": 6
+    },
+    {
+      "productId": 8,
+      "quantity": 1,
+      "id": 7
+    },
+    {
+      "productId": 9,
+      "quantity": 1,
+      "id": 8
+    },
+    {
+      "productId": 2,
+      "quantity": 2,
+      "id": 10
+    },
+    {
       "productId": 1,
       "quantity": 2,
-      "id": 1
+      "id": 11
+    },
+    {
+      "productId": 3,
+      "quantity": 1,
+      "id": 12
     }
   ]
 }
