@@ -63,6 +63,17 @@
         "golf"
       ],
       "id": 3
+    },
+    {
+      "email": "test@test1.com",
+      "password": "$2a$10$xhTaHiTOoUZgsy27ztWF..A9lR2LlJTyQEoFfRPcOUZQ60H4e6.L.",
+      "name": "Test",
+      "gender": "female",
+      "hobbies": [
+        "football",
+        "golf"
+      ],
+      "id": 4
     }
   ],
   "products": [
@@ -310,8 +321,23 @@
   "cart": [
     {
       "productId": 1,
-      "quantity": 1,
+      "quantity": 3,
       "id": 1
+    },
+    {
+      "productId": 2,
+      "quantity": 3,
+      "id": 2
+    },
+    {
+      "productId": 3,
+      "quantity": 1,
+      "id": 3
+    },
+    {
+      "productId": 4,
+      "quantity": 1,
+      "id": 4
     }
   ]
 }

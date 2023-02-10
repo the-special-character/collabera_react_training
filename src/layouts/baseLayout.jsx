@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import { AuthProvider } from '../context/authContext';
-import { LoadingProvider } from '../context/loadingContext';
-import { ErrorProvider } from '../context/errorContext';
+import { useDispatch } from 'react-redux';
 import Errors from '../components/Errors';
 
 function BaseLayout() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const JSONToken = JSON.parse(token);
+      dispatch({ type: 'LOGIN_SUCCESS', payload: JSONToken });
+    }
+  }, [dispatch]);
+
   return (
-    <LoadingProvider>
-      <ErrorProvider>
-        <AuthProvider>
-          <Outlet />
-          <Errors />
-        </AuthProvider>
-      </ErrorProvider>
-    </LoadingProvider>
+    <>
+      <Outlet />
+      <Errors />
+    </>
   );
 }
 

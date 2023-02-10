@@ -6,7 +6,7 @@ import React, {
   useReducer,
 } from 'react';
 import PropTypes from 'prop-types';
-import { cartInitialValue, cartReducer } from '../reducers/cartReducer';
+import cartReducer, { cartInitialValue } from '../reducers/cartReducer';
 import useApiRequest from '../hooks/useApiRequest';
 import { useErrorContext } from './errorContext';
 import { useLoadingContext } from './loadingContext';

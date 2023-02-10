@@ -1,19 +1,9 @@
-import React from 'react';
-import { registerFields, registerInitialValues } from './registerFields';
-import CustomForm from '../../components/CustomForm';
-import { useAuthContext } from '../../context/authContext';
+import { connect } from 'react-redux';
+import { registerAction } from '../../actions/authActions';
+import Register from './register.';
 
-function Register() {
-  const { register } = useAuthContext();
+const mapDispatchToProps = dispatch => ({
+  register: (values, actions) => registerAction(values, actions)(dispatch),
+});
 
-  return (
-    <CustomForm
-      initialValues={registerInitialValues}
-      onSubmit={register}
-      fields={registerFields}
-      btnText="Sign in"
-    />
-  );
-}
-
-export default Register;
+export default connect(null, mapDispatchToProps)(Register);

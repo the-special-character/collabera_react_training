@@ -1,29 +1,29 @@
-import axiosInstance from '../utils/axiosInstance';
+import APIRequest from '../utils/APIRequest';
 
-export const loginAction = (values, actions) => async dispatch => {
-  try {
-    dispatch({ type: 'LOGIN_REQUEST', meta: { loadingId: -1 } });
-    const res = await axiosInstance.post('login', values);
-    localStorage.setItem('token', JSON.stringify(res));
-    actions.resetForm();
-    dispatch({
-      type: 'LOGIN_SUCCESS',
-      payload: res,
-      meta: { loadingId: -1 },
-    });
-  } catch (error) {
-    actions.setErrors({ serverError: error.message });
-    dispatch({
-      type: 'LOGIN_FAIL',
-      payload: {
-        message: error.message,
-      },
-      meta: { loadingId: -1 },
-    });
-  }
+export const loginAction = values => async dispatch => {
+  const type = 'LOGIN';
+  await APIRequest({
+    type,
+    apiData: {
+      method: 'post',
+      url: 'login',
+      data: values,
+    },
+    meta: { loadingId: -1 },
+    dispatch,
+  });
 };
 
-export const registerAction = async (values, actions) => async dispatch => {
-  try {
-  } catch (error) {}
+export const registerAction = values => async dispatch => {
+  const type = 'REGISTER';
+  await APIRequest({
+    type,
+    apiData: {
+      method: 'post',
+      url: 'register',
+      data: values,
+    },
+    meta: { loadingId: -1 },
+    dispatch,
+  });
 };

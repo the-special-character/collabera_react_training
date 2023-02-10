@@ -6,9 +6,8 @@ import React, {
   useReducer,
 } from 'react';
 import PropTypes from 'prop-types';
-import {
+import productsReducer, {
   productsInitialValue,
-  productsReducer,
 } from '../reducers/productReducer';
 import useApiRequest from '../hooks/useApiRequest';
 import { useErrorContext } from './errorContext';
