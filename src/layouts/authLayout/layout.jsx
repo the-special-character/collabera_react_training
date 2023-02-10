@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Navigate, Outlet } from 'react-router-dom';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 function AuthLayout({ user }) {
   if (user) {
@@ -35,8 +35,12 @@ function AuthLayout({ user }) {
   );
 }
 
-const mapStateToProps = ({ user: { user } }) => ({
-  user,
-});
+AuthLayout.propTypes = {
+  user: PropTypes.shape({}),
+};
 
-export default connect(mapStateToProps)(AuthLayout);
+AuthLayout.defaultProps = {
+  user: null,
+};
+
+export default AuthLayout;
