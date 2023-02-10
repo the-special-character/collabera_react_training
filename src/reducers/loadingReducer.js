@@ -1,6 +1,6 @@
 export const loadingInitialState = [];
 
-export default (state, { type, payload }) => {
+export default (state = loadingInitialState, { type, payload, meta }) => {
   const match = /(.*)_(REQUEST|SUCCESS|FAIL)/.exec(type);
 
   if (!match) return state;
@@ -11,12 +11,12 @@ export default (state, { type, payload }) => {
       ...state,
       {
         action: actionType,
-        ...payload,
+        ...meta,
       },
     ];
   }
 
   return state.filter(
-    x => !(x.action === actionType && x.loadingId === payload.loadingId),
+    x => !(x.action === actionType && x.loadingId === meta.loadingId),
   );
 };

@@ -1,11 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { loginFields, loginInitialValues } from './loginFields';
 import CustomForm from '../../components/CustomForm';
-import { useAuthContext } from '../../context/authContext';
+import { loginAction } from '../../actions/authActions';
 
-function Login() {
-  const { login } = useAuthContext();
-
+function Login({ login }) {
   return (
     <CustomForm
       initialValues={loginInitialValues}
@@ -42,4 +41,8 @@ function Login() {
   );
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => ({
+  login: (values, actions) => loginAction(values, actions)(dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

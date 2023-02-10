@@ -1,10 +1,8 @@
 import React from 'react';
 import { Link, Navigate, Outlet } from 'react-router-dom';
-import { useAuthContext } from '../context/authContext';
+import { connect } from 'react-redux';
 
-function AuthLayout() {
-  const { user } = useAuthContext();
-
+function AuthLayout({ user }) {
   if (user) {
     return <Navigate to="/dashboard" replace />;
   }
@@ -37,4 +35,8 @@ function AuthLayout() {
   );
 }
 
-export default AuthLayout;
+const mapStateToProps = ({ user: { user } }) => ({
+  user,
+});
+
+export default connect(mapStateToProps)(AuthLayout);
