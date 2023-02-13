@@ -47,6 +47,7 @@ export const deleteCartItemAction = data => async dispatch => {
     apiData: {
       method: 'delete',
       url: `660/cart/${data.id}`,
+      data,
     },
     type,
     dispatch,

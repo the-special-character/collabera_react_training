@@ -39,7 +39,10 @@
       "password": "$2a$10$nD8zamTN4ej43Jp3wFXRje.diQuUQkwAYk0lY/38JLoohFgyh98mS",
       "name": "YAGNESH MODH",
       "gender": "male",
-      "hobbies": ["cricket", "football"],
+      "hobbies": [
+        "cricket",
+        "football"
+      ],
       "id": 1
     },
     {
@@ -55,7 +58,10 @@
       "password": "$2a$10$fh9WmHziw5emmqNI8BbRUuT0nZjowK.kYsZAhb4DifJylUlL9GXxG",
       "name": "test",
       "gender": "male",
-      "hobbies": ["cricket", "golf"],
+      "hobbies": [
+        "cricket",
+        "golf"
+      ],
       "id": 3
     },
     {
@@ -63,7 +69,10 @@
       "password": "$2a$10$xhTaHiTOoUZgsy27ztWF..A9lR2LlJTyQEoFfRPcOUZQ60H4e6.L.",
       "name": "Test",
       "gender": "female",
-      "hobbies": ["football", "golf"],
+      "hobbies": [
+        "football",
+        "golf"
+      ],
       "id": 4
     }
   ],
@@ -311,11 +320,6 @@
   ],
   "cart": [
     {
-      "productId": 1,
-      "quantity": 4,
-      "id": 1
-    },
-    {
       "productId": 2,
       "quantity": 3,
       "id": 2
@@ -349,7 +353,10 @@
         "email": "yagnesh.modh@gmail.com",
         "name": "YAGNESH MODH",
         "gender": "male",
-        "hobbies": ["cricket", "football"],
+        "hobbies": [
+          "cricket",
+          "football"
+        ],
         "id": 1
       },
       "message": "something went wrong",

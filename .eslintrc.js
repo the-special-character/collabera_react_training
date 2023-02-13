@@ -20,5 +20,6 @@ module.exports = {
     'react/jsx-no-constructed-context-values': 0,
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
+    'default-param-last': 0,
   },
 };
