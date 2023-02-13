@@ -1,6 +1,6 @@
 const logger = store => next => action => {
-  console.log(action.payload);
-  console.log(action.meta);
+  console.log('Store', store.getState());
+  console.log('action', action);
   next(action);
 };
 

@@ -1,7 +1,19 @@
-const error = store => next => action => {
-  // error occurs in project
-  // base on action identify error occurs or not
-  //   if error is there then make a server call and once the servercall complete call next action
+import axiosInstance from '../utils/axiosInstance';
+
+const error = store => next => async action => {
+  const {
+    user: { user },
+  } = store.getState();
+  const match = /(.*)_(FAIL)/.exec(action.type);
+
+  if (match) {
+    await axiosInstance.post('errors', {
+      user,
+      ...action.payload,
+      createdAt: new Date(),
+    });
+  }
+
   next(action);
 };
 

@@ -312,7 +312,7 @@
   "cart": [
     {
       "productId": 1,
-      "quantity": 3,
+      "quantity": 4,
       "id": 1
     },
     {
@@ -329,7 +329,33 @@
       "productId": 4,
       "quantity": 1,
       "id": 4
+    },
+    {
+      "productId": 5,
+      "quantity": 1,
+      "id": 5
     }
   ],
-  "errors": []
+  "errors": [
+    {
+      "user": null,
+      "message": "Incorrect password",
+      "title": "Login fail",
+      "createdAt": "2023-02-13T04:27:04.699Z",
+      "id": 1
+    },
+    {
+      "user": {
+        "email": "yagnesh.modh@gmail.com",
+        "name": "YAGNESH MODH",
+        "gender": "male",
+        "hobbies": ["cricket", "football"],
+        "id": 1
+      },
+      "message": "something went wrong",
+      "title": "Delete cart fail",
+      "createdAt": "2023-02-13T04:30:27.534Z",
+      "id": 2
+    }
+  ]
 }
