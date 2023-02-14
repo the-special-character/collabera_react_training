@@ -12,7 +12,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --write .",
-    "server": "json-server --watch db.json -m ./node_modules/json-server-auth"
+    "server": "json-server --watch db.json -m ./node_modules/json-server-auth",
+    "test": "jest"
   },
   "keywords": [
     "Javascript",
@@ -35,6 +36,8 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "html-webpack-plugin": "^5.5.0",
+    "jest": "^29.4.2",
+    "jest-environment-jsdom": "^29.4.2",
     "json-server": "^0.17.1",
     "json-server-auth": "^2.1.0",
     "postcss": "^8.4.21",
