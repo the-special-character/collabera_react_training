@@ -1,6 +1,6 @@
 export const loadingInitialState = [];
 
-export default (state = loadingInitialState, { type, payload, meta }) => {
+export default (state = loadingInitialState, { type, meta }) => {
   const match = /(.*)_(REQUEST|SUCCESS|FAIL)/.exec(type);
 
   if (!match) return state;

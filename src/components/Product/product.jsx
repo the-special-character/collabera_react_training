@@ -62,7 +62,7 @@ function Product({
               </p>
               <button
                 type="button"
-                disabled={isLoading}
+                // disabled={isLoading}
                 className="flex flex-1 w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2  disabled:bg-slate-500 disabled:cursor-wait"
                 onClick={() => {
                   if (cartItem.quantity <= 1) {
@@ -81,7 +81,7 @@ function Product({
           ) : (
             <button
               type="button"
-              disabled={isLoading}
+              // disabled={isLoading}
               className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-slate-500 disabled:cursor-wait"
               onClick={() =>
                 addToCart({

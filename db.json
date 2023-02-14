@@ -320,11 +320,6 @@
   ],
   "cart": [
     {
-      "productId": 2,
-      "quantity": 3,
-      "id": 2
-    },
-    {
       "productId": 3,
       "quantity": 1,
       "id": 3
@@ -338,6 +333,16 @@
       "productId": 5,
       "quantity": 1,
       "id": 5
+    },
+    {
+      "productId": 1,
+      "quantity": 1,
+      "id": 6
+    },
+    {
+      "productId": 2,
+      "quantity": 7,
+      "id": 7
     }
   ],
   "errors": [
