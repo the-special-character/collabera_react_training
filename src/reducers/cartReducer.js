@@ -1,6 +1,6 @@
 export const cartInitialValue = [];
 
-export default (state = cartInitialValue, { type, payload }) => {
+export const CartReducder = (state = cartInitialValue, { type, payload }) => {
   switch (type) {
     case 'LOAD_CART_SUCCESS':
       return payload;

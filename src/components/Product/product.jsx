@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Reviews from '../Reviews';
+import { currency } from '../../utils';
 
 function Product({
   product,
@@ -30,11 +31,8 @@ function Product({
         <section aria-labelledby="information-heading" className="mt-2">
           <h3 id="information-heading">{product.description}</h3>
 
-          <p className="text-2xl text-gray-900">
-            {new Intl.NumberFormat('en-IN', {
-              style: 'currency',
-              currency: 'INR',
-            }).format(product.price)}
+          <p data-testid="price" className="text-2xl text-gray-900">
+            {currency(product.price)}
           </p>
 
           {/* Reviews */}
@@ -81,7 +79,7 @@ function Product({
           ) : (
             <button
               type="button"
-              // disabled={isLoading}
+              disabled={isLoading}
               className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-slate-500 disabled:cursor-wait"
               onClick={() =>
                 addToCart({
