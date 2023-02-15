@@ -12,11 +12,11 @@ function Home({ loadProducts, loadCart, products, loading }) {
   }, [loadData]);
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return <h1 data-testid="loading">Loading...</h1>;
   }
 
   return (
-    <div>
+    <div data-testid="products-info">
       {products.map(product => (
         <Product key={product.id} product={product} />
       ))}

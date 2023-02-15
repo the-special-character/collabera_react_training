@@ -9,10 +9,10 @@ function MainLayout({ user }) {
   }
 
   return (
-    <>
+    <div data-testid="main-wrapper">
       <Header />
       <Outlet />
-    </>
+    </div>
   );
 }
 

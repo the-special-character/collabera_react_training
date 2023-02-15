@@ -6,12 +6,15 @@ function* apiGenerator({ type, payload, meta }) {
   const [, actionName] = match;
   try {
     const res = yield call(axiosInstance, payload);
+
+    console.log('api res', res);
     yield put({
       type: `${actionName}_SUCCESS`,
       payload: actionName === 'DELETE_CART' ? payload.data : res,
       meta,
     });
   } catch (error) {
+    console.log('api error', error);
     yield put({ actionName: `${actionName}_FAIL`, payload: error, meta });
   }
 }
