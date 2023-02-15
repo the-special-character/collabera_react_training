@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Product from '../../components/Product';
 
-function Home({ loadProducts, loadCart, products, loading }) {
+function Home({ loadProducts, loadCart, products, loading, hasError }) {
   const loadData = useCallback(async () => {
     await Promise.all([loadProducts(), loadCart()]);
   }, [loadProducts, loadCart]);
@@ -13,6 +13,10 @@ function Home({ loadProducts, loadCart, products, loading }) {
 
   if (loading) {
     return <h1 data-testid="loading">Loading...</h1>;
+  }
+
+  if (hasError) {
+    return <h1 data-testid="error">Something went wrong...</h1>;
   }
 
   return (
@@ -42,6 +46,7 @@ Home.propTypes = {
     }),
   ).isRequired,
   loading: PropTypes.bool.isRequired,
+  hasError: PropTypes.bool.isRequired,
 };
 
 export default Home;

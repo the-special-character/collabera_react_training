@@ -32,6 +32,10 @@ const cart = [
 ];
 
 describe('test Home page', () => {
+  beforeEach(() => {
+    mock.reset();
+  });
+
   test('should first', async () => {
     renderWithProviders(<Home />);
     const loading = await screen.findByTestId('loading');
@@ -57,5 +61,13 @@ describe('test Home page', () => {
     renderWithProviders(<Home />);
     const productInfo = await screen.findByTestId('products-info');
     expect(productInfo).toBeInTheDocument();
+  });
+
+  test('should return error', async () => {
+    mock.onGet('660/products').networkErrorOnce();
+    mock.onGet('660/cart').networkErrorOnce();
+    renderWithProviders(<Home />);
+    const error = await screen.findByTestId('error');
+    expect(error).toBeInTheDocument();
   });
 });
