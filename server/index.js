@@ -1,26 +1,14 @@
-const express = require('express');
+import express from 'express';
+import dotEnv from 'dotenv';
+import Routes from './routes';
+
+dotEnv.config();
+
+const port = process.env.PORT || 3000;
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('hello wold');
-});
-
-app.get('/product/:id', (req, res) => {
-  res.send(`Product id is ${req.params.id} for info`);
-});
-
-app.get('/products', (req, res) => {
-  const { category } = req.query;
-  res.send(`Products for category: ${category}`);
-});
-
-app.get('/contact', (req, res) => {
-  res.send('contact info');
-});
-
-// const hostname = 'localhost';
-const port = 3000;
+Routes.initRoutes(app);
 
 app.listen(port, () => {
   console.log('Server started');
